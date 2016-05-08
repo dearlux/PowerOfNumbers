@@ -652,6 +652,14 @@ public class tGameController : MonoBehaviour
 
 
 	void OnGUI(){
+
+			if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 105, 100, 60), skipToGame) ){
+				SceneManager.LoadScene ("scene");
+			}
+
+			if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 165, 100, 60), quitText) ){
+				Application.Quit();
+			}
 			
 //		GUI.Box (new Rect (970, 28, 200, 33), nextUpText);
 				    if (level == 0){ 
@@ -710,9 +718,9 @@ public class tGameController : MonoBehaviour
 
 
             }
-            if (GUI.Button(new Rect(25, Screen.height - 85, 110, 60), quitText)){
-                Application.Quit();
-            }
+//            if (GUI.Button(new Rect(25, Screen.height - 85, 110, 60), quitText)){
+//                Application.Quit();
+//            }
 
 				if (GUI.Button(new Rect(25, Screen.height - 1555, 110, 60), skipToGame) ){
 					SceneManager.LoadScene ("scene");
@@ -848,9 +856,7 @@ public class tGameController : MonoBehaviour
 
 						//GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
 				}
-					if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 105, 110, 60), skipToGame) ){
-						SceneManager.LoadScene ("scene");
-					}
+
 			}
 
 			if (this.currentplayer.model.healthval > 3) {			
