@@ -44,6 +44,7 @@ public class BossBullet : MonoBehaviour {
 		print ("entered collider in boss bullet");
 		if (other.tag == "Player" || other.tag == "inviscircle") {
 			Destroy (this.gameObject);
+
 		}
 	}
 }
