@@ -1,5 +1,4 @@
-# MangoStudios-Prototype2Test
+# MangoStudios-Final Build
 
-This is the extension of prototype 1 with all the design implementation. 
-We made this as it was simpler to extend the code we had instead of dealing with new issues and problems. 
-We will change the location of certain functions to make it more in line with the Technical Specificaition
+This is the final version of our game, Power in Numbers, for CS361 Game Design at Oberlin College with Prof. Tom Wexler 
+
