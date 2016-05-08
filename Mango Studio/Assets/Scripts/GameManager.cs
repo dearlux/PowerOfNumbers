@@ -507,7 +507,7 @@ public class GameManager : MonoBehaviour
 
 			if ( shadowPlayers.Count <= this.playerLives) {
 				//playertype++;
-			} else if (shadowPlayers.Count > this.playerLives) {
+			} else if (shadowPlayers.Count >= this.playerLives) {
 				this.gameOver();
 
 			}

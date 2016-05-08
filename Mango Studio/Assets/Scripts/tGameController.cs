@@ -825,14 +825,28 @@ public class tGameController : MonoBehaviour
 
 			if (!this.gamewon && !this.gameover) {
 				if (currentplayer.playerType == 0) {
-					GUI.Box (new Rect (50, Screen.height-120, 200, 30), squareins);
-					GUI.Box (new Rect (50, Screen.height-150, 150, 30), squareab);
+					GUI.Box (new Rect (50, Screen.height-120, 300, 50), squareins);
+					GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
+					// ******JUN LI ******* Look here for tutorial instructions
+						// The next one would be for the instruction for this tutorial
+					// Use the square as a shield to protect others
+					// Use shadows to kill the boss within 30 secs
+					
+					//GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
 				} else if (currentplayer.playerType == 1) {
-					GUI.Box (new Rect (50, Screen.height-120, 200, 30), circleins);
-					GUI.Box (new Rect (50, Screen.height-150, 250, 30), circleab);
+					GUI.Box (new Rect (50, Screen.height-120, 300, 50), circleins);
+					GUI.Box (new Rect (50, Screen.height-170, 300, 50), circleab);
+						// The next one would be for the instruction for this tutorial
+						// Use special ability to kill the boss within 30 secs
+
+						//GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
 				} else {
-					GUI.Box (new Rect (50, Screen.height-120, 200, 30), diamondins);
-					GUI.Box (new Rect (50, Screen.height-150, 200, 30), diamondab);
+					GUI.Box (new Rect (50, Screen.height-120, 300, 50), diamondins);
+					GUI.Box (new Rect (50, Screen.height-170, 300, 50), diamondab);
+						// The next one would be for the instruction for this tutorial
+						// Use rapid fire ability to kill the boss within 30 secs
+
+						//GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
 				}
 					if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 105, 110, 60), skipToGame) ){
 						SceneManager.LoadScene ("scene");
