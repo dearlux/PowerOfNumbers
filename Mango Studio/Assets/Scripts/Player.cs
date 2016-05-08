@@ -97,6 +97,7 @@ public class Player : MonoBehaviour {
 
 		if (this.playerType == 0) {
 			this.model.mat.mainTexture = Resources.Load<Texture2D> ("Textures/pup"+this.playerType);
+
 		} else if (this.playerType == 2) {
 			this.model.mat.mainTexture = Resources.Load<Texture2D> ("Textures/pup"+this.playerType);
 		}
@@ -136,6 +137,7 @@ public class Player : MonoBehaviour {
 			transform.localScale = new Vector3 (3f, 3f, 1f);	
 		} else if (this.playerType == 0) {
 			model.mat.mainTexture = Resources.Load<Texture2D> ("Textures/SquareSP");
+			transform.localScale = new Vector3 (1.15f, 1.15f, 1f);
 		
 		
 		} else if (this.playerType == 2) {
@@ -177,7 +179,7 @@ public class Player : MonoBehaviour {
 			transform.localScale = new Vector3 (1.4f, 1f, 1f);
 		}else if (this.playerType == 0) {
 			model.mat.mainTexture = Resources.Load<Texture2D> ("Textures/Square");
-
+			transform.localScale = new Vector3 (0.86956f, 0.86956f, 1f);
 
 		} else if (this.playerType == 2) {
 			model.mat.mainTexture = Resources.Load<Texture2D> ("Textures/triangle2");
@@ -278,10 +280,12 @@ public class Player : MonoBehaviour {
 			// Square is invulnerable
 			} else {
 				if (this.model.healthval > 0) {
-					this.m.PlayEffect (this.m.playerHit);
-					this.initHit (this.transform.position.x, this.transform.position.y, 1);
-					StartCoroutine (this.whenGotHit ());
-					this.destroy ();
+					if (this.model.firstRun) {
+						this.m.PlayEffect (this.m.playerHit);
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
 				}
 			}
 
@@ -290,10 +294,14 @@ public class Player : MonoBehaviour {
 			if (this.playerType == 0 && this.usingability) {
 			// Square is invulnerable
 			} else {
-				this.m.PlayEffect (this.m.playerHit);
-				this.initHit (this.transform.position.x, this.transform.position.y, 1);
-				StartCoroutine (this.whenGotHit ());
-				this.destroy ();
+				if (this.model.healthval > 0) {
+					if (this.model.firstRun) {
+						this.m.PlayEffect (this.m.playerHit);
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
+				}
 			}
 
 		}
@@ -302,10 +310,12 @@ public class Player : MonoBehaviour {
 			// Square is invulnerable
 			} else {
 				if (this.model.healthval > 0) {
-					this.m.PlayEffect (this.m.bladecrash);
-					this.initHit (this.transform.position.x, this.transform.position.y, 1);
-					StartCoroutine (this.whenGotHit ());
-					this.destroy ();
+					if (this.model.firstRun) {
+						this.m.PlayEffect (this.m.bladecrash);
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
 				}
 			}
 
@@ -315,11 +325,13 @@ public class Player : MonoBehaviour {
 				// Square is invulnerable
 			} else {
 				if (this.model.healthval > 0) {
-					this.m.PlayEffect (this.m.playerHit);
+					if (this.model.firstRun) {
+						this.m.PlayEffect (this.m.playerHit);
 
-					this.initHit (this.transform.position.x, this.transform.position.y, 1);
-					StartCoroutine (this.whenGotHit ());
-					this.destroy ();
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
 				}
 			}
 
@@ -333,12 +345,15 @@ public class Player : MonoBehaviour {
 			if (this.playerType == 0 && this.usingability) {
 				// Square is invulnerable
 			} else {
-				if (damageclock <= 0) {
-					damageclock = .7f;
-					StartCoroutine (this.whenGotHit ());
-					this.destroy ();
-				} else {
-					damageclock = damageclock - Time.deltaTime;
+				if (this.model.firstRun) {
+					if (damageclock <= 0) {
+						damageclock = .7f;
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					} else {
+						damageclock = damageclock - Time.deltaTime;
+					}
+
 				}
 			}
 		}

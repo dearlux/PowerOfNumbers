@@ -694,7 +694,7 @@ public class GameManager : MonoBehaviour
 
 
 
-			if (GUI.Button(new Rect(Screen.width / 2 - 125, Screen.height / 2 + 20, 250, 70),tutorialText))
+			if (GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height / 2 + 20, 300, 70),tutorialText))
             {
                 //level = 10;
 				SceneManager.LoadScene("tutorial");
