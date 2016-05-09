@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
 	public Texture specialText;
 	public Texture abilityOnText;
 	public Texture gameoverText;
+	public Texture level1;
+	public Texture level2;
 	public Texture gamewonText;
 	public Texture startText;
 	public Texture quitText;
@@ -664,6 +666,10 @@ public class GameManager : MonoBehaviour
 
 
 	void OnGUI(){
+
+		if (GUI.Button(new Rect(25, Screen.height - 75, 100, 60), quitText) ){
+			Application.Quit();
+		}
 //		GUI.Box (new Rect (970, 28, 200, 33), nextUpText);
 				    if (level == 0){ 
 //            GUIStyle myStyle = new GUIStyle(GUI.skin.GetStyle("label"));
@@ -672,7 +678,8 @@ public class GameManager : MonoBehaviour
 			GUI.skin.box.fontSize = 25;
 
 
-            GUI.Box (new Rect (Screen.width / 2 - 250, Screen.height / 2 - 290, 500, 410), titleText);
+			GUI.Box (new Rect (Screen.width / 2 - 200, Screen.height / 2 - 290, 400, 330), titleText);
+
             GUI.color = Color.white;
             GUI.skin.box.fontSize = 12;
             GUI.skin.box.alignment = TextAnchor.MiddleCenter;
@@ -688,14 +695,14 @@ public class GameManager : MonoBehaviour
 
 
 
-			if (GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height / 2 + 50, 300, 100),tutorialText))
+			if (GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height / 2 + 20, 300, 70),tutorialText))
             {
                 //level = 10;
 				SceneManager.LoadScene("tutorial");
 				// Here, we can just load a differnet scene
             }
 
-   if (GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height / 2 + 160, 300, 100),startText)|| Input.GetKeyDown(KeyCode.Return))
+			if (GUI.Button(new Rect(Screen.width / 2 - 125, Screen.height / 2 + 100, 250, 70),level1)|| Input.GetKeyDown(KeyCode.Return))
             {
                 level = 1;
 
@@ -732,9 +739,44 @@ public class GameManager : MonoBehaviour
 
 
             }
-            if (GUI.Button(new Rect(25, Screen.height - 75, 150, 60), quitText) || Input.GetKeyDown(KeyCode.Escape)){
-                Application.Quit();
-            }
+			if (GUI.Button(new Rect(Screen.width / 2 - 125, Screen.height / 2 + 180, 250, 70),level2))
+			{
+				level = 1;
+				bossCurrentLife++;
+				addPlayer(playerOrder[playerOrderIndex], 1, -4, -4);
+				playerOrderIndex++;
+
+				currentplayer = players [0];
+
+				print ("firstplayertype: " + currentplayer.playerType);
+				if (currentplayer.playerType == 0) {
+					//square
+					currentplayer.setCD (this.coolDownSquare);
+				} else if (currentplayer.playerType == 1) {
+					//circle
+					currentplayer.setCD (this.coolDownCircle);
+
+				} else if (currentplayer.playerType == 2) {
+					//triangle
+					currentplayer.setCD (this.coolDownTriangle);
+				}
+				//setHealthText ();
+				clock = 0f;
+				shadow = new List<Vector3> ();
+				shadowiterator = 0;
+				startitr = false;
+				this.createInitialEnv ();
+
+				GameObject bossObject = new GameObject();
+				Boss boss = bossObject.AddComponent<Boss>();
+				boss.init (this, bossCurrentLife);
+				THEBOSS = boss;
+				StartCoroutine (iterationSlowdown (3));
+
+
+
+			}
+
 
         	} 
 

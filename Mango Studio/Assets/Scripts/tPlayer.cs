@@ -294,9 +294,11 @@ public class tPlayer : MonoBehaviour {
 			if (this.playerType == 0 && this.usingability) {
 			// Square is invulnerable
 			} else {
-				this.initHit (this.transform.position.x, this.transform.position.y, 1);
-				StartCoroutine (this.whenGotHit ());
-				this.destroy ();
+					if (this.model.firstRun) {
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
 			}
 
 		}
@@ -304,9 +306,11 @@ public class tPlayer : MonoBehaviour {
 			if (this.playerType == 0 && this.usingability) {
 			// Square is invulnerable
 			} else {
-				this.initHit (this.transform.position.x, this.transform.position.y, 1);
-				StartCoroutine (this.whenGotHit ());
-				this.destroy ();
+					if (this.model.firstRun) {
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
 			}
 
 		}
@@ -314,9 +318,11 @@ public class tPlayer : MonoBehaviour {
 			if (this.playerType == 0 && this.usingability || !this.model.firstRun) {
 			// Square is invulnerable
 			} else {
-				this.initHit (this.transform.position.x, this.transform.position.y, 1);
-				StartCoroutine (this.whenGotHit ());
-				this.destroy ();
+					if (this.model.firstRun) {
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
 			}
 
 		}
@@ -324,9 +330,11 @@ public class tPlayer : MonoBehaviour {
 			if (this.playerType == 0 && this.usingability) {
 				// Square is invulnerable
 			} else {
-				this.initHit (this.transform.position.x, this.transform.position.y, 1);
-				StartCoroutine (this.whenGotHit ());
-				this.destroy ();
+					if (this.model.firstRun) {
+						this.initHit (this.transform.position.x, this.transform.position.y, 1);
+						StartCoroutine (this.whenGotHit ());
+						this.destroy ();
+					}
 			}
 
 		}
@@ -339,13 +347,15 @@ public class tPlayer : MonoBehaviour {
 			if (this.playerType == 0 && this.usingability) {
 				// Square is invulnerable
 			} else {
-				if (damageclock <= 0) {
-					damageclock = .7f;
-					StartCoroutine (this.whenGotHit ());
-					this.destroy ();
-				} else {
-					damageclock = damageclock - Time.deltaTime;
-				}
+					if (this.model.firstRun) {
+						if (damageclock <= 0) {
+							damageclock = .7f;
+							StartCoroutine (this.whenGotHit ());
+							this.destroy ();
+						} else {
+							damageclock = damageclock - Time.deltaTime;
+						}
+					}
 			}
 		}
 	}
