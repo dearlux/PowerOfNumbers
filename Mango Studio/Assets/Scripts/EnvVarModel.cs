@@ -26,7 +26,7 @@ public class EnvVarModel : MonoBehaviour {
 		mat.shader = Shader.Find ("Sprites/Default");						// Tell the renderer that our textures have transparency. // Get the material component of this quad object.
 		mat.mainTexture = Resources.Load<Texture2D>("Textures/envTex");	// Set the texture.  Must be in Resources folder.
 		//mat.color = new Color(1,1,1);
-		transform.localScale = new Vector3(0.8f, 0.8f, 1);
+		transform.localScale = new Vector3(0.85f, 0.85f, 1);
 		//this.owner.GetComponent<BoxCollider2D>().transform.position = transform.position;
 	}
 

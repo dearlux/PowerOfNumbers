@@ -41,7 +41,7 @@ public class EnvVar : MonoBehaviour {
 	void doDamage(int x){
 		this.health -= x;
 		if (health == 4) {
-			model.transform.localScale = new Vector3 (0.85f, 0.85f, 1);
+			model.transform.localScale = new Vector3 (0.80f, 0.80f, 1);
 			this.GetComponent<BoxCollider2D>().transform.localScale = model.transform.localScale;
 		} else if (health == 3) {
 			model.transform.localScale = new Vector3 (0.70f, 0.70f, 1);
@@ -78,7 +78,7 @@ public class EnvVar : MonoBehaviour {
 			//Destroy (this.gameObject);
 		} else if (other.name == "Bullet" || other.name == "SpecialBullet") {
 			// When hit by a bullet
-			Destroy (other.gameObject);
+			//Destroy (other.gameObject);
 		} else if (other.name == "BossBullet") {
 			// When hit by a bossBullet
 			Destroy (other.gameObject);
@@ -96,5 +96,11 @@ public class EnvVar : MonoBehaviour {
 		} else if (other.name == "Boss") {
 			this.doDamage (1000);
 		}
+		if (other.name == "EnvVar") {
+			this.killThisEnv ();
+
+
+		}
+	
 	}
 }
