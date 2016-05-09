@@ -98,8 +98,6 @@ public class EnvVar : MonoBehaviour {
 		}
 		if (other.name == "EnvVar") {
 			this.killThisEnv ();
-
-
 		}
 	
 	}
