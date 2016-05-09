@@ -54,6 +54,7 @@ public class tGameController : MonoBehaviour
 	//Iteration Transition Variables
 	private bool inTransition = false;
 	private bool guiTransition = false;
+		private bool flash = false;
 
 
 	//Textures for GUI
@@ -93,6 +94,11 @@ public class tGameController : MonoBehaviour
 	public Texture circleab;
 	public Texture diamondab;
 	public Texture skipToGame;
+		public Texture ins1aText;
+		public Texture ins2aText;
+		public Texture ins3aText;
+		public Texture ins1bText;
+		public Texture nextText;
 
 
 
@@ -138,6 +144,11 @@ public class tGameController : MonoBehaviour
     // Use this for initialization
     void Start(){
 		//score = 36000;
+			ins1aText = Resources.Load<Texture2D> ("Textures/ins1aText");
+			ins2aText = Resources.Load<Texture2D> ("Textures/ins2aText");
+			ins3aText = Resources.Load<Texture2D> ("Textures/ins3aText");
+			ins1bText = Resources.Load<Texture2D> ("Textures/ins1bText");;
+			nextText = Resources.Load<Texture2D> ("Textures/nextText");;
 		Camera.main.backgroundColor = Color.black;
 		music.GetComponent<AudioSource> ().clip = bgm;
 		music.Play ();
@@ -654,17 +665,17 @@ public class tGameController : MonoBehaviour
 	void OnGUI(){
 			
 //		GUI.Box (new Rect (970, 28, 200, 33), nextUpText);
-				    if (level == 0){ 
+			if (level == 0) { 
 //            GUIStyle myStyle = new GUIStyle(GUI.skin.GetStyle("label"));
 //            myStyle.fontSize = 40;
-			GUI.skin.box.alignment = TextAnchor.MiddleLeft;
-			GUI.skin.box.fontSize = 25;
+				GUI.skin.box.alignment = TextAnchor.MiddleLeft;
+				GUI.skin.box.fontSize = 25;
 
 
-            GUI.Box (new Rect (Screen.width / 2 - 250, Screen.height / 2 - 270, 500, 400), titleText);
-            GUI.color = Color.white;
-            GUI.skin.box.fontSize = 12;
-            GUI.skin.box.alignment = TextAnchor.MiddleCenter;
+				GUI.Box (new Rect (Screen.width / 2 - 250, Screen.height / 2 - 270, 500, 400), titleText);
+				GUI.color = Color.white;
+				GUI.skin.box.fontSize = 12;
+				GUI.skin.box.alignment = TextAnchor.MiddleCenter;
 
 //            if (GUI.Button(new Rect(Screen.width / 2 - 70, Screen.height / 2 + 50, 140, 60),tutorialText))
 //            {
@@ -673,137 +684,136 @@ public class tGameController : MonoBehaviour
 //				// Here, we can just load a differnet scene
 //            }
 
-   if (GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height / 2 + 130, 300, 100),startText)|| Input.GetKeyDown(KeyCode.Return))
-            {
-                level = 1;
+				if (GUI.Button (new Rect (Screen.width / 2 - 150, Screen.height / 2 + 130, 300, 100), startText) || Input.GetKeyDown (KeyCode.Return)) {
+					level = 1;
 
-        addPlayer(playerOrder[playerOrderIndex], 1, -4, -4);
-		playerOrderIndex++;
+					addPlayer (playerOrder [playerOrderIndex], 1, -4, -4);
+					playerOrderIndex++;
 
-		currentplayer = players [0];
+					currentplayer = players [0];
 
-		print ("firstplayertype: " + currentplayer.playerType);
-		if (currentplayer.playerType == 0) {
-			//square
-			currentplayer.setCD (this.coolDownSquare);
-		} else if (currentplayer.playerType == 1) {
-			//circle
-			currentplayer.setCD (this.coolDownCircle);
+					print ("firstplayertype: " + currentplayer.playerType);
+					if (currentplayer.playerType == 0) {
+						//square
+						currentplayer.setCD (this.coolDownSquare);
+					} else if (currentplayer.playerType == 1) {
+						//circle
+						currentplayer.setCD (this.coolDownCircle);
 
-		} else if (currentplayer.playerType == 2) {
-			//triangle
-			currentplayer.setCD (this.coolDownTriangle);
-		}
-		//setHealthText ();
-		clock = 0f;
-		shadow = new List<Vector3> ();
-		shadowiterator = 0;
-		startitr = false;
-		this.createInitialEnv ();
+					} else if (currentplayer.playerType == 2) {
+						//triangle
+						currentplayer.setCD (this.coolDownTriangle);
+					}
+					//setHealthText ();
+					clock = 0f;
+					shadow = new List<Vector3> ();
+					shadowiterator = 0;
+					startitr = false;
+					this.createInitialEnv ();
 
-		GameObject bossObject = new GameObject();
-		tBoss boss = bossObject.AddComponent<tBoss>();
-		boss.init (this, bossCurrentLife);
-		THEBOSS = boss;
-		StartCoroutine (iterationSlowdown (3));
-
+					GameObject bossObject = new GameObject ();
+					tBoss boss = bossObject.AddComponent<tBoss> ();
+					boss.init (this, bossCurrentLife);
+					THEBOSS = boss;
+					StartCoroutine (iterationSlowdown (3));
 
 
-            }
-            if (GUI.Button(new Rect(25, Screen.height - 85, 110, 60), quitText)){
-                Application.Quit();
-            }
 
-				if (GUI.Button(new Rect(25, Screen.height - 1555, 110, 60), skipToGame) ){
+				}
+				if (GUI.Button (new Rect (25, Screen.height - 85, 110, 60), quitText)) {
+					Application.Quit ();
+				}
+
+				if (GUI.Button (new Rect (25, Screen.height - 1555, 110, 60), skipToGame)) {
 					SceneManager.LoadScene ("scene");
 				}
-        	} 
+			} 
 
-		if (level == 10){ //level selction
+			if (level == 10) { //level selction
 
-            for (int i = 1; i < 7; i++) {
-                    GUIStyle BStyle = new GUIStyle(GUI.skin.GetStyle("Button"));
-                    BStyle.fontSize = 25;
-                    if (GUI.Button(new Rect(Screen.width / 8 + (i - 1) * Screen.width / 8, Screen.height / 2-Screen.width / 8/2 + Screen.width / 8 / 4/2, Screen.width / 8 - Screen.width / 8 / 4, Screen.width / 8 - Screen.width / 8 / 4), i.ToString(), BStyle))
-                    {
+				for (int i = 1; i < 7; i++) {
+					GUIStyle BStyle = new GUIStyle (GUI.skin.GetStyle ("Button"));
+					BStyle.fontSize = 25;
+					if (GUI.Button (new Rect (Screen.width / 8 + (i - 1) * Screen.width / 8, Screen.height / 2 - Screen.width / 8 / 2 + Screen.width / 8 / 4 / 2, Screen.width / 8 - Screen.width / 8 / 4, Screen.width / 8 - Screen.width / 8 / 4), i.ToString (), BStyle)) {
 //                        resetLevel();
-                        level = i;
+						level = i;
 //                        makeLevel();
-                    }
-                    if (GUI.Button(new Rect(100, Screen.height-100, 200,80), "Back To Menu"))
-                    {
+					}
+					if (GUI.Button (new Rect (100, Screen.height - 100, 200, 80), "Back To Menu")) {
 //                        resetLevel();
-                        level = 0;
+						level = 0;
 //                        makeLevel();
-                    }
+					}
 
-        }
-    }
-
-
-        	if (level == 1){
-		if (this.gameover) {
+				}
+			}
 
 
-			GUI.skin.box.alignment = TextAnchor.MiddleLeft;
-			GUI.skin.box.fontSize = 25;
+
+
+			if (level == 1) {
+				if (this.gameover) {
+
+
+					GUI.skin.box.alignment = TextAnchor.MiddleLeft;
+					GUI.skin.box.fontSize = 25;
 
 
 					if (GUI.Button (new Rect (Screen.width / 2 - 300, Screen.height / 2 - 50, 600, 100), gameoverText)) {
-						SceneManager.LoadScene("tutorial");	
+						SceneManager.LoadScene ("tutorial");	
 					}
-			GUI.color = Color.white;
-			GUI.skin.box.fontSize = 12;
-			GUI.skin.box.alignment = TextAnchor.MiddleCenter;
+					GUI.color = Color.white;
+					GUI.skin.box.fontSize = 12;
+					GUI.skin.box.alignment = TextAnchor.MiddleCenter;
 		
-		}
+				}
 
-		if(this.gamewon){
+				if (this.gamewon) {
 			
 
-			foreach (tPlayer x in this.players) {
-				Destroy (x.gameObject);
-			}
-			this.players.Clear ();
+					foreach (tPlayer x in this.players) {
+						Destroy (x.gameObject);
+					}
+					this.players.Clear ();
 
-			foreach (tPlayer x in this.shadowPlayers) {
-				Destroy (x.gameObject);
-			}
+					foreach (tPlayer x in this.shadowPlayers) {
+						Destroy (x.gameObject);
+					}
 
-			this.shadowPlayers.Clear ();
+					this.shadowPlayers.Clear ();
 
 					//Destroy (this.THEBOSS.model1.gameObject);
 					//Destroy (this.THEBOSS.gameObject);
-					THEBOSS.transform.position = new Vector3(-200, -200, 0);
+					THEBOSS.transform.position = new Vector3 (-200, -200, 0);
 
-			GUI.skin.box.alignment = TextAnchor.MiddleLeft;
-			GUI.skin.box.fontSize = 25;
+					GUI.skin.box.alignment = TextAnchor.MiddleLeft;
+					GUI.skin.box.fontSize = 25;
 
 
 					if (GUI.Button (new Rect (Screen.width / 2 - 300, Screen.height / 2 - 100, 600, 200), gamewonText)) {
-						SceneManager.LoadScene("scene");	
+						SceneManager.LoadScene ("scene");	
 					}
 			
-			GUI.color = Color.white;
-			GUI.skin.box.fontSize = 12;
-			GUI.skin.box.alignment = TextAnchor.MiddleCenter;
+					GUI.color = Color.white;
+					GUI.skin.box.fontSize = 12;
+					GUI.skin.box.alignment = TextAnchor.MiddleCenter;
 
 
 
-		}
+				}
 
-		if (this.guiTransition) {
-			if (GUI.Button (new Rect (Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200), nextbossText)) {
-				this.guiTransition = false;
-			}
+				if (this.guiTransition) {
+					if (GUI.Button (new Rect (Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200), nextbossText)) {
+						this.guiTransition = false;
+					}
 		
-		}
+				}
 
 // ****** TO reset the game - we will need to use a scene manager - Luxing take a look at this!**********
 //		if(GUI.Button(new Rect((Screen.width- 100, Screen.height - 200, 500, 20), "Reset")) {
 //			Application.
 //		}
-			/*GUI.Box(new Rect (1100, 28, 200, 33), scoreText);
+				/*GUI.Box(new Rect (1100, 28, 200, 33), scoreText);
 			int s1 = score / 10000;
 			int s2 = (score-10000*s1 )/ 1000;
 			int s3 = (score-10000*s1-1000*s2 )/ 100;
@@ -823,83 +833,113 @@ public class tGameController : MonoBehaviour
 			}
 			GUI.Box (new Rect (1170, 58, 40, 40), Resources.Load<Texture>("Textures/number"+s5));*/
 
-			if (!this.gamewon && !this.gameover) {
-				if (currentplayer.playerType == 0) {
-					GUI.Box (new Rect (50, Screen.height-120, 300, 50), squareins);
-					GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
-					// ******JUN LI ******* Look here for tutorial instructions
-						// The next one would be for the instruction for this tutorial
-					// Use the square as a shield to protect others
-					// Use shadows to kill the boss within 30 secs
-					
-					//GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
-				} else if (currentplayer.playerType == 1) {
-					GUI.Box (new Rect (50, Screen.height-120, 300, 50), circleins);
-					GUI.Box (new Rect (50, Screen.height-170, 300, 50), circleab);
-						// The next one would be for the instruction for this tutorial
-						// Use special ability to kill the boss within 30 secs
+				if (!this.gamewon && !this.gameover) {
+					if (currentplayer.playerType == 0) {
+						GUI.Box (new Rect (50, Screen.height - 120, 300, 50), squareins);
+						GUI.Box (new Rect (50, Screen.height - 160, 300, 50), squareab);
 
-						//GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
-				} else {
-					GUI.Box (new Rect (50, Screen.height-120, 300, 50), diamondins);
-					GUI.Box (new Rect (50, Screen.height-170, 300, 50), diamondab);
+						// ******JUN LI ******* Look here for tutorial instructions
 						// The next one would be for the instruction for this tutorial
-						// Use rapid fire ability to kill the boss within 30 secs
+						// Use the square as a shield to protect others
+						// Use shadows to kill the boss within 15 secs
+						if (Time.time %2 < 1) {
+							//							x = GUI.color;
+							GUI.color = Color.clear;
 
+						} else {
+							//							GUI.color = x;
+							GUI.color = Color.white;
+
+						}
+						GUI.Box (new Rect (Screen.width -500, 120, 400, 40), ins3aText);
+						GUI.Box (new Rect (Screen.width -500, 160, 400, 40), ins1bText);
+					} else if (currentplayer.playerType == 1) {
+						GUI.Box (new Rect (50, Screen.height - 120, 480, 50), circleins);
+						GUI.Box (new Rect (50, Screen.height - 160, 300, 50), circleab);
+						// The next one would be for the instruction for this tutorial
+						// Use special ability to kill the boss within 15 secs
+						if (Time.time %2 < 1) {
+							GUI.color = Color.clear;
+						} else {
+							GUI.color = Color.white;
+
+						}
+						GUI.Box (new Rect (Screen.width -500, 120, 400, 40), ins2aText);
+						GUI.Box (new Rect (Screen.width -500, 160, 400, 40), ins1bText);
+					} else {
+							GUI.Box (new Rect (50, Screen.height - 120, 300, 50), diamondab);
+							GUI.Box (new Rect (50, Screen.height - 160, 300, 50), diamondins);
+
+						if (Time.time %2 < 1) {
+							GUI.color = Color.white;
+						} else {
+							GUI.color = Color.clear;
+
+						}
+						GUI.Box (new Rect (Screen.width -500, 120, 400, 40), ins1aText);
+						GUI.Box (new Rect (Screen.width -500, 160, 400, 40), ins1bText);
+						// The next one would be for the instruction for this tutorial
+						// Use rapid fire ability to kill the boss within 15 secs
+						//GUI.color = x;
 						//GUI.Box (new Rect (50, Screen.height-170, 300, 50), squareab);
-				}
-					if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 105, 110, 60), skipToGame) ){
+					}
+					GUI.color = Color.white;
+					if (GUI.Button (new Rect (Screen.width - 150, Screen.height - 105, 110, 60), skipToGame)) {
+						
 						SceneManager.LoadScene ("scene");
 					}
-			}
+				}
 
-			if (this.currentplayer.model.healthval > 3) {			
-				GUI.color = Color.green;
-			} else {
-				GUI.color = Color.red;
-			}
-			GUI.skin.box.alignment = TextAnchor.MiddleLeft;
-			GUI.skin.box.fontSize = 22;
-			 String ss = "";
+				if (level == 1) {
+					if (this.currentplayer.model.healthval > 3) {			
+						GUI.color = Color.green;
+					} else {
+						GUI.color = Color.red;
+					}
+					GUI.skin.box.alignment = TextAnchor.MiddleLeft;
+					GUI.skin.box.fontSize = 22;
+					String ss = "";
 
-			for (int i = 0; i < this.currentplayer.model.healthval; i++) {
+					for (int i = 0; i < this.currentplayer.model.healthval; i++) {
 
-				ss += "I";
+						ss += "I";
 
-			}
+					}
 				
 
-			GUI.color = Color.white;
-			GUI.skin.box.fontSize = 12;
-			GUI.skin.box.alignment = TextAnchor.MiddleCenter;
+					GUI.color = Color.white;
+					GUI.skin.box.fontSize = 12;
+					GUI.skin.box.alignment = TextAnchor.MiddleCenter;
 		
 
-		if (this.playerOrderIndex < playerLives) {
-			GUI.skin.box.alignment = TextAnchor.LowerCenter;
-			GUI.skin.box.fontSize = 22;
-			GUI.Box (new Rect (900, 25, 110, 34), nextUpText);
+					if (this.playerOrderIndex < playerLives) {
+						GUI.skin.box.alignment = TextAnchor.LowerCenter;
+						GUI.skin.box.fontSize = 22;
+						GUI.Box (new Rect (900, 25, 110, 34), nextUpText);
 
-			int nextType = playerOrder [playerOrderIndex];
-			if (nextType == 0) {
-				GUI.Box (new Rect (925, 60, 50, 50), this.forSq);
-			} else if (nextType == 1) {
-				GUI.Box (new Rect (925, 60, 50, 50), this.forC);
-			} else if (nextType == 2) {
-				GUI.Box (new Rect (925, 60, 50, 50), this.forT);
+						int nextType = playerOrder [playerOrderIndex];
+						if (nextType == 0) {
+							GUI.Box (new Rect (925, 60, 50, 50), this.forSq);
+						} else if (nextType == 1) {
+							GUI.Box (new Rect (925, 60, 50, 50), this.forC);
+						} else if (nextType == 2) {
+							GUI.Box (new Rect (925, 60, 50, 50), this.forT);
+						}
+					} else {
+						//GUI.color = Color.red;
+						GUI.skin.box.fontSize = 22;
+						GUI.Box (new Rect (900, 19, 100, 40), lastLifeText);
+
+
+		
+					}
+					GUI.skin.box.fontSize = 12;
+
+				}
+			
+
 			}
-		}else {
-				//GUI.color = Color.red;
-				GUI.skin.box.fontSize = 22;
-			GUI.Box(new Rect (900, 19, 100, 40), lastLifeText);
-
-
-		
 		}
-		GUI.skin.box.fontSize = 12;
-
-}
-
-	}
 
 	public tPlayer GetTarget(){
 		return currentplayer;

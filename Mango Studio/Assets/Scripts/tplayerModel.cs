@@ -397,7 +397,7 @@ public class tplayerModel : MonoBehaviour
 			if (this.owner.usingability) {
 				GUI.color = Color.green;
 				GUI.skin.box.fontSize = 22;
-				GUI.Box (new Rect (Screen.width - 150, Screen.height - 150, 100, 100), abilityOnText);
+				GUI.Box (new Rect (Screen.width - 200, Screen.height - 180, 200, 30), abilityOnText);
 				GUI.skin.box.fontSize = 12;
 				GUI.color = Color.white;
 			}
